@@ -1,0 +1,328 @@
+/*
+Note: any .css or .scss files included in the 'styles' directory
+will be correctly compiled during `gulp serve` and `gulp`
+ */
+
+// Variables;
+
+// $primary-color-dark:   #C2185B;
+// $primary-color:        #E91E63;
+// $primary-color-light:  #F8BBD0;
+// $primary-color-text:   #FFFFFF;
+// $accent-color:         #E040FB;
+// $primary-text-color:   #212121;
+// $secondary-text-color: #757575;
+// $divider-color:        #BDBDBD;
+
+$primary-color-dark:   #7B1FA2;
+$primary-color:        #9C27B0;
+$primary-color-light:  #E1BEE7;
+$primary-color-text:   #FFFFFF;
+$accent-color:         #FF4081;
+$primary-text-color:   #212121;
+$secondary-text-color: #757575;
+$divider-color:        #BDBDBD;
+
+@import "materialize";
+
+// html, body {
+//   font-family: 'Roboto', 'Helvetica', sans-serif;
+//   margin: 0;
+//   padding: 0;
+// }
+
+/* Custom Stylesheet */
+
+.default_color{background-color: $primary-color !important}
+
+.accent_color{background-color: $accent-color !important}
+
+.default_color_text{color: $primary-color !important}
+
+.icon-block {
+    padding: 0 15px;
+}
+
+#intro, #work, #team {padding-top: 1rem;}
+
+#index-banner {
+    min-height: 312px;
+    max-height: 444px;
+    position: relative;
+    background-color: $primary-color;
+}
+
+#nav_f{
+    box-shadow: none !important; 
+    -webkit-box-shadow:none !important;
+}
+
+.text_h {
+    padding: 7% 0;
+    font-size: 4.0em;
+    font-weight: 100;
+    color:white;
+}
+
+.brand-logo{
+    font-style: normal;
+    font-weight: 100;
+    /*letter-spacing: 3px;*/
+}
+
+#logo-container {
+    width: 80%;
+}
+
+#logo-m {
+    height: 2.5rem;
+    margin-right: 3%;
+    vertical-align: text-bottom;
+}
+
+.text_h2 {font-weight: 100; margin-bottom: 4%; line-height: 3.0rem;}
+
+.span_h2 {font-weight: 300; color: $primary-color;}
+
+.text_b {color: $primary-color;}
+
+.in {font-weight: 400 !important; font-style: normal !important;}
+
+.promo i {
+    color: $primary-color;
+}
+
+.btn-price {
+    bottom: 24px !important;
+    text-transform: initial !important;
+    width: 66px !important;
+    height: 66px !important;
+    // font-size: 1.7rem;
+    letter-spacing: initial;
+    line-height: 20px !important;
+}
+
+.btn-price span {
+    font-size: 1.7rem !important;
+}
+
+.btn-price sub, .btn-price sup, .btn-price p {
+    margin: 3px 0 2px 0;
+    font-size: 0.85rem;
+    //line-height: 5rem;
+    bottom: initial;
+}
+
+.card-content a, .card-reveal a {color: $primary-color;}
+
+.card-content a:hover, .card-reveal a:hover {color: $primary-color;}
+
+.card-image .card-title {font-weight: 400}
+
+// .card .card-content p {
+//     margin: 15px 0px;
+// }
+
+.card-action a {color: $accent-color !important;}
+
+#work, #team{background: rgb(247, 247, 247);}
+
+// .text_pink{color:#EF9A9A;}
+
+nav ul a {
+    font-size: 1.2rem;
+    color: #FFF;
+    letter-spacing: 2px;
+    display: block;
+    font-weight: 300;
+    padding: 0px 15px;
+}
+
+.cd-headline.type .cd-words-wrapper {
+    vertical-align: top;
+    overflow: hidden;
+}
+
+.cd-headline.type .cd-words-wrapper::after {
+    /* vertical bar */
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    bottom: auto;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%);
+    height: 90%;
+    width: 1px;
+    background-color: #aebcb9;
+}
+
+.cd-headline.type .cd-words-wrapper.waiting::after {
+    -webkit-animation: cd-pulse 1s infinite;
+    -moz-animation: cd-pulse 1s infinite;
+    animation: cd-pulse 1s infinite;
+}
+
+.cd-headline.type .cd-words-wrapper.selected {
+    background-color: #FFF;
+}
+
+.cd-headline.type .cd-words-wrapper.selected::after {
+    visibility: hidden;
+}
+
+.cd-headline.type .cd-words-wrapper.selected b {
+    color: $primary-color;
+}
+
+.cd-headline.type b {
+    visibility: hidden;
+}
+
+.cd-headline.type b.is-visible {
+    visibility: visible;
+}
+
+.cd-headline.type i {
+    position: absolute;
+    visibility: hidden;
+}
+.cd-headline.type i.in {
+    position: relative;
+    visibility: visible;
+}
+
+@-webkit-keyframes cd-pulse {
+    0% {
+        -webkit-transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    40% {
+        -webkit-transform: translateY(-50%) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+}
+@-moz-keyframes cd-pulse {
+    0% {
+        -moz-transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    40% {
+        -moz-transform: translateY(-50%) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        -moz-transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+}
+
+@keyframes cd-pulse {
+    0% {
+        -webkit-transform: translateY(-50%) scale(1);
+        -moz-transform: translateY(-50%) scale(1);
+        -ms-transform: translateY(-50%) scale(1);
+        -o-transform: translateY(-50%) scale(1);
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+    }
+    40% {
+        -webkit-transform: translateY(-50%) scale(0.9);
+        -moz-transform: translateY(-50%) scale(0.9);
+        -ms-transform: translateY(-50%) scale(0.9);
+        -o-transform: translateY(-50%) scale(0.9);
+        transform: translateY(-50%) scale(0.9);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: translateY(-50%) scale(0);
+        -moz-transform: translateY(-50%) scale(0);
+        -ms-transform: translateY(-50%) scale(0);
+        -o-transform: translateY(-50%) scale(0);
+        transform: translateY(-50%) scale(0);
+        opacity: 0;
+    }
+}
+
+
+/* Preloader */
+#preloader {
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff; /* change if the mask should have another color then white */
+    z-index:1200; /* makes sure it stays on top */
+}
+
+#status {
+    width:200px;
+    height:200px;
+    position:absolute;
+    left:50%; /* centers the loading animation horizontally one the screen */
+    top:50%; /* centers the loading animation vertically one the screen */
+    background-image:url(../img/status.gif); /* path to your loading animation */
+    background-repeat:no-repeat;
+    background-position:center;
+    margin:-100px 0 0 -100px; /* is width and height divided by two */
+}
+
+@media only screen and (max-width: 480px) {
+    .text_h {
+        padding: 4% 0;
+        font-size: 5em;
+        font-weight: 100;
+        color: white;
+    }
+}
+
+// input, textarea {
+//     border-bottom: 1px solid #fff;
+// }
+
+nav a.button-collapse {
+    left: -25px;
+}
+
+.page-footer .row {
+    margin-bottom: 0;
+}
+
+// .card-avatar .waves-effect {
+//     text-align: center;
+//     margin-top: 20px;
+// }
+
+// .card-avatar img {
+//     height: 150px;
+//     width: 150px;
+//     border-radius: 75px;
+// }
+
+// .card-avatar .card-content {
+//     text-align: center;
+// }
+
+// .card-avatar .card-content i {
+//    font-size: 1.5rem;
+// }
+
+// .card-avatar .card-content .card-title {
+//     line-height: 30px !important;
+// }
+
+// .parallax-container {
+//     max-height: 400px;
+// }
+
+// footer.page-footer {
+//     margin-top: 0px !important;
+// }
