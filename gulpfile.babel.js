@@ -39,7 +39,7 @@ const reload = browserSync.reload;
 
 // Lint JavaScript
 gulp.task('lint', () =>
-  gulp.src(['app/scripts/**/*.js','!app/scripts/*.min.js','!app/scripts/materialize.js','!node_modules/**'])
+  gulp.src(['app/scripts/**/*.js', '!app/scripts/*.min.js', '!app/scripts/materialize.js', '!node_modules/**'])
     .pipe($.eslint())
     .pipe($.eslint.format())
     .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
@@ -68,6 +68,16 @@ gulp.task('copy', () =>
     .pipe($.size({title: 'copy'}))
 );
 
+// Copy font
+gulp.task('fonts', () =>
+  gulp.src([
+    'app/fonts/**'
+  ], {
+    dot: true
+  }).pipe(gulp.dest('dist/fonts'))
+    .pipe($.size({title: 'fonts'}))
+);
+
 // Compile and automatically prefix stylesheets
 gulp.task('styles', () => {
   const AUTOPREFIXER_BROWSERS = [
@@ -85,6 +95,7 @@ gulp.task('styles', () => {
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
     'app/styles/**/*.scss',
+    '!app/styles/materialize.scss',
     'app/styles/**/*.css'
   ])
     .pipe($.newer('.tmp/styles'))
@@ -111,7 +122,7 @@ gulp.task('scripts', () =>
       //       you need to explicitly list your scripts here in the right order
       //       to be correctly concatenated
       './app/scripts/materialize.js',
-      './app/scripts/modernizr.min.js',
+      // './app/scripts/modernizr.min.js',
       './app/scripts/main.js'
       // Other scripts
     ])
@@ -199,7 +210,7 @@ gulp.task('serve:dist', ['default'], () =>
 gulp.task('default', ['clean'], cb =>
   runSequence(
     'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    ['lint', 'html', 'scripts', 'images', 'copy', 'fonts'],
     'generate-service-worker',
     cb
   )
