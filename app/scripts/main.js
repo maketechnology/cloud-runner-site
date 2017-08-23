@@ -17,6 +17,11 @@
  *
  */
 /* eslint-env browser */
+
+var $ = require('jquery');
+require('materialize');
+var ClientOAuth2 = require('client-oauth2');
+
 (function() {
   'use strict';
 
@@ -73,6 +78,41 @@
   }
 
   // Your custom JavaScript goes here
+  function start() {
+    var githubAuth = new ClientOAuth2({
+      clientId: '51d0a06ff8a75eeca09b87bc451cf4c9be2d3c3602f96e28bd1f2e33de555aaa',
+      // clientSecret: '123',
+      // accessTokenUri: 'https://github.com/login/oauth/access_token',
+      authorizationUri: 'https://gitlab.com/oauth/authorize',
+      redirectUri: 'http://localhost:3002/index.html',
+      // http://www.wemaketechnology.com/cloud-runner-site/oauth/gitlab/callback
+      scopes: ['api', 'read_user'],
+      state: 'cgr'
+    })
+
+    window.oauth2Callback = function (uri) {
+      console.log(uri)
+      githubAuth.token.getToken(uri)
+        .then(function (user) {
+          console.log(user) //=> { accessToken: '...', tokenType: 'bearer', ... }
+
+          // Make a request to the github API for the current user.
+          return popsicle.request(user.sign({
+            method: 'get',
+            url: 'https://api.github.com/user'
+          })).then(function (res) {
+            console.log(res) //=> { body: { ... }, status: 200, headers: { ... } }
+          })
+        })
+    }
+
+    // Open the page in a new window, then redirect back to a page that calls our global `oauth2Callback` function.
+    window.open(githubAuth.token.getUri())
+  }
+
+  $('.card-action a').click(function() {
+    start();
+  });
 })();
 
 // template

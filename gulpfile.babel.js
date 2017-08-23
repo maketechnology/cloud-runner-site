@@ -33,6 +33,9 @@ import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import {output as pagespeed} from 'psi';
 import pkg from './package.json';
+import browserify from 'browserify';
+import source from 'vinyl-source-stream';
+import buffer from "vinyl-buffer";
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
@@ -116,29 +119,43 @@ gulp.task('styles', () => {
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
 // to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
 // `.babelrc` file.
-gulp.task('scripts', () =>
-    gulp.src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      './app/scripts/materialize.js',
-      // './app/scripts/modernizr.min.js',
-      './app/scripts/main.js'
-      // Other scripts
-    ])
-      .pipe($.newer('.tmp/scripts'))
+gulp.task('scripts', () => {    
+    // var browserified = transform(function(filename) {
+    //   var b = browserify(filename);
+    //   return b.bundle();
+    // });
+    // return gulp.src([
+    //   // Note: Since we are not using useref in the scripts build pipeline,
+    //   //       you need to explicitly list your scripts here in the right order
+    //   //       to be correctly concatenated
+    //   //'./app/scripts/materialize.js',
+    //   // './app/scripts/modernizr.min.js',
+    //   './app/scripts/main.js',
+    //   //'./node_modules/client-oauth2/src/client-oauth2.js'
+    //   // Other scripts
+    // ])
+    return browserify({
+        entries: './app/scripts/main.js',
+        debug: true
+      })
+      // .transform('browserify-shim', {global: true})
+      .bundle()
+      // .pipe(browserified)
+      .pipe(source('bundle.js'))
+      .pipe(buffer())
+      // .pipe($.newer('.tmp/scripts'))
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.sourcemaps.write())
       .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
-      .pipe($.uglify({preserveComments: 'some'}))
+      // // .pipe($.concat('main.min.js'))
+      // .pipe($.uglify({preserveComments: 'some'}))
       // Output files
       .pipe($.size({title: 'scripts'}))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('dist/scripts'))
       .pipe(gulp.dest('.tmp/scripts'))
-);
+});
 
 // Scan your HTML for assets & optimize them
 gulp.task('html', () => {
@@ -180,7 +197,7 @@ gulp.task('serve', ['scripts', 'styles'], () => {
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
-    server: ['.tmp', 'app'],
+    server: ['.tmp', 'app', 'node_modules'],
     port: 3000
   });
 
